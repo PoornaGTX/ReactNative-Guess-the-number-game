@@ -1,0 +1,3 @@
+elevation - styled property that used to make shadow
+textAlign - align input area in a textinput but not align the textinput
+maxLength - for text input
