@@ -1,6 +1,6 @@
 import { TextInput, View, StyleSheet, Alert } from "react-native";
-import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
+import PrimaryButton from "../components/ui/PrimaryButton";
 import Colors from "../constants/colors";
 
 //buttons walata wena wenama views danne buttons walta same sizes ganna ona nisa.flex 1 danne e nisa
@@ -9,7 +9,6 @@ const StartGameScreen = ({ onPickNumber }) => {
   const [enterdNumber, setEnteredNumber] = useState("");
 
   const numberInputHandler = (enteredText) => {
-    console.log(enteredText);
     setEnteredNumber(enteredText);
   };
 
@@ -19,7 +18,6 @@ const StartGameScreen = ({ onPickNumber }) => {
 
   const confirmInputHandler = () => {
     const choseNumber = parseInt(enterdNumber);
-    console.log(choseNumber);
 
     if (isNaN(choseNumber) || choseNumber <= 0 || choseNumber > 99) {
       //isNan -is not a number
@@ -28,7 +26,7 @@ const StartGameScreen = ({ onPickNumber }) => {
       ]);
       return;
     }
-    choseNumber;
+    onPickNumber(choseNumber);
   };
 
   return (

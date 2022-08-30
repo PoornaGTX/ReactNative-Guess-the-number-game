@@ -9,3 +9,5 @@ keyboardType -  this is used for select the keyborad type for text input (like n
 LinearGradient - is expo package is used to get gradient color
 
 SafeAreaView - SafeAreaView ekak danne notch ekak thiya phone wala e notch ekata app eke content hiden wenne nethi wenna
+
+Text - in a Text view we cant add border styles
