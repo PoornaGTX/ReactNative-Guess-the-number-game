@@ -1,4 +1,10 @@
-import { Text, View, StyleSheet, Alert } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Alert,
+  useWindowDimensions,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -25,6 +31,8 @@ let maxBoundary = 100;
 const GameScreen = ({ userNumber, onGameOver }) => {
   const intialGuess = genarateRandomNumber(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(intialGuess);
+
+  const { width, height } = useWindowDimensions();
 
   useEffect(() => {
     if (currentGuess === userNumber) {
@@ -54,9 +62,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     setCurrentGuess(newRandomNumber);
   };
 
-  return (
-    <View style={styles.screen}>
-      <Title>Opponent's Guess</Title>
+  let content = (
+    <>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
         <InstructionText style={styles.InstructionText}>
@@ -76,6 +83,38 @@ const GameScreen = ({ userNumber, onGameOver }) => {
           </View>
         </View>
       </Card>
+    </>
+  );
+
+  if (width > 500) {
+    content = (
+      <>
+        <InstructionText style={styles.InstructionText}>
+          Higher or lower?
+        </InstructionText>
+        <View style={styles.buttonsContainerwide}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={nextGuessHanlder.bind(this, "lower")}>
+              <Ionicons name="md-remove" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+
+          <NumberContainer>{currentGuess}</NumberContainer>
+
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={nextGuessHanlder.bind(this, "greater")}>
+              <Ionicons name="md-add" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+        </View>
+      </>
+    );
+  }
+
+  return (
+    <View style={styles.screen}>
+      <Title>Opponent's Guess</Title>
+      {content}
       <View></View>
     </View>
   );
@@ -88,6 +127,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     margin: 20,
+    alignItems: "center",
   },
   InstructionText: {
     marginBottom: 12,
@@ -97,5 +137,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
+  },
+  buttonsContainerwide: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
